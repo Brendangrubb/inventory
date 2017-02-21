@@ -18,9 +18,24 @@
             $test_InventoryItem = new InventoryItem;
             $input = 'steely dan records';
 
-            $result = $test_InventoryItem->save();
+            $result = $test_InventoryItem->save($input);
 
             $this->assertEquals($GLOBALS['DB']->query('SELECT name FROM inventory;'), $result);
+        }
+
+        function test_getAll()
+        {
+            $input1 = 'broken guitar';
+            $input2 = 'smelly dog';
+            $test_InventoryItem1 = new InventoryItem;
+            $test_InventoryItem1->save($input1);
+            $test_InventoryItem2 = new InventoryItem;
+            $test_InventoryItem2->save($input2);
+
+
+            $result = InventoryItem::getAll();
+
+            $this->assertEquals(['broken guitar', 'smelly dog'], $result);
         }
     }
 
